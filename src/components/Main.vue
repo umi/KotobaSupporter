@@ -237,8 +237,6 @@ export default {
 							let matchIndexList = []
 							if(v === 2){
 								matchIndexList = indexList.value[k][key]
-								// result[0].push(indexList.value[k][key])
-								// result[1].push(indexList.value[4].filter(o => indexList.value[k][key].indexOf(o) === -1))
 							}else if(v === 3){
 								if(typeof statusSet[0] !== 'undefined'){
 									matchIndexList = indexList.value[6][k][statusSet[0]].filter(o => indexList.value[k][key].indexOf(o) === -1)
