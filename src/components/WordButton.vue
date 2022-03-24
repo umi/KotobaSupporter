@@ -95,13 +95,13 @@ export default {
 }
 
 .input_button {
-	font-size: 1.75em;
+	font-size: 1.5em;
 	margin: 5px;
 	border: solid #555 0px;
 	background-color: #e5e7eb;
 	border-radius: 0.25rem;
 	color: black;
 	cursor: pointer;
-	padding: 4px 12px;
+	padding: 4px 12px 0;
 }
 </style>
