@@ -447,16 +447,16 @@ export default {
 	}
 	.input_button {
 		font-size: 2em;
-		margin: 5px;
+		margin: 3px;
 		border: solid #555 0px;
 		background-color: #e5e7eb;
 		border-radius: 0.25rem;
 		color: black;
 		cursor: pointer;
-		padding: 0 12px;
+		padding: 0 8px;
 		&.search {
-			width: 1.25em;
-			padding: 5px 7px 0px;
+			width: 1.4em;
+			padding: 5px 9px 0px;
 		}
 	}
 }
