@@ -240,14 +240,17 @@ export default {
 							}else if(v === 3){
 								if(typeof statusSet[0] !== 'undefined'){
 									matchIndexList = indexList.value[6][k][statusSet[0]].filter(o => indexList.value[k][key].indexOf(o) === -1)
+									result[1].push(indexList.value[5][key])
 								}
 							}else if(v === 4){
 								if(typeof statusSet[1] !== 'undefined'){
 									matchIndexList = indexList.value[6][k][statusSet[1]].filter(o => indexList.value[k][key].indexOf(o) === -1)
+									result[1].push(indexList.value[5][key])
 								}
 							}else if(v === 5){
 								if(typeof statusSet[2] !== 'undefined'){
 									matchIndexList = indexList.value[6][k][statusSet[2]].filter(o => indexList.value[k][key].indexOf(o) === -1)
+									result[1].push(indexList.value[5][key])
 								}
 							}
 							if(matchIndexList.length > 0){
