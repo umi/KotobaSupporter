@@ -48,8 +48,9 @@ export default {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		background-color: rgb(228,237,241);
-		border: solid 0.15em rgb(167,210,141);
+		background-color: white;
+		border: 0.15em solid #e5e7eb;
+		border-radius: 0.25rem;
 		text-align: center;
 		font-weight: bold;
 		vertical-align: middle;
@@ -63,14 +64,14 @@ export default {
 			color: white;
 		}
 		&.state1 {
-			background-color: rgb(252, 201, 72);
-			border: solid 0.15em rgb(252, 201, 72);
-			color: black;
+			background-color: #eab308;
+			border: solid 0.15em #eab308;
+			color: white;
 		}
 		&.state2 {
-			background-color: rgb(167,210,141);
-			border: solid 0.15em rgb(167,210,141);
-			color: black;
+			background-color: #22c55e;
+			border: solid 0.15em #22c55e;
+			color: white;
 		}
 		&.state3 {
 			background-image: url(/images/close-lime.svg);
@@ -90,19 +91,17 @@ export default {
 			border: solid 0.15em #9ca3af;
 			color: white;
 		}
-		&.round1 {
-			border-radius: 50%!important;
-		}
-
 	}
 }
 
 .input_button {
-	font-size: 2em;
+	font-size: 1.75em;
 	margin: 5px;
 	border: solid #555 0px;
-	background-color: rgb(211,147,93);
+	background-color: #e5e7eb;
+	border-radius: 0.25rem;
 	color: black;
 	cursor: pointer;
+	padding: 4px 12px;
 }
 </style>

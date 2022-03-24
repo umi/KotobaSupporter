@@ -205,10 +205,10 @@ export default {
 		})
 
 		const displayAns = computed(() => {
-			return ansList.value.slice(0, 87)
+			return ansList.value.slice(0, 88)
 		})
 		const displaySearch = computed(() => {
-			return searchList.value.slice(0, 99)
+			return searchList.value.slice(0, 100)
 		})
 
 		// 候補絞り込み
@@ -373,7 +373,7 @@ export default {
 		<div class="answerArea">
 			<div class="inputs">
 				<input class="input_text" placeholder="回答入力" type="text" maxlength="4" ref="ansInput">
-				<button class="input_button" @click="registItem">追加</button>
+				<button class="input_button" @click="registItem">⏎</button>
 			</div>
 			<div class="btn">
 				<WordButton :inputList="inputList" :delFunc="deleteItem" :changeFunc="changeItem" :refinedFunc="refined" />
@@ -390,7 +390,11 @@ export default {
 		<div class="searchArea">
 			<div class="inputs">
 				<input class="input_text" placeholder="検索文字入力" type="text" ref="searchInput">
-				<button class="input_button" @click="search">検索</button>
+				<button class="input_button search" @click="search">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" class="">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+					</svg>
+				</button>
 			</div>
 			<Loading :show="loadingSearch" text="検索中…" />
 			<div class="words">
@@ -400,7 +404,7 @@ export default {
 	</div>
 	<div :class="[inputErr ? 'alert': 'alert non_visi']">
 		<div>
-			<p id="alert_text">注意<br>ことのはアプリの辞書内の単語を記入して下さい</p>
+			<p id="alert_text">注意<br>辞書内の単語を記入して下さい</p>
 		</div>
 	</div>
 </template>
@@ -411,7 +415,7 @@ export default {
     justify-content: center;
 	gap: 30px;
 	padding: 10px 0;
-	background: #e4edf1;
+	background: white;
 
 	@media screen and (max-width: 700px) {
 		flex-direction: column;
@@ -435,9 +439,8 @@ export default {
 		font-size: 1.5em;
 		width: 9em;
 		text-align: center;
-		border: solid rgb(167,210,141) 2px;
-		background-color: rgb(228,237,241);
-		border-radius: 1em;
+		border: 0.15em solid #e5e7eb;
+		border-radius: 0.25rem;
 		padding: 5px;
 		/* margin-bottom: 10px; */
 		margin: 3px;
@@ -446,9 +449,15 @@ export default {
 		font-size: 2em;
 		margin: 5px;
 		border: solid #555 0px;
-		background-color: rgb(211,147,93);
+		background-color: #e5e7eb;
+		border-radius: 0.25rem;
 		color: black;
 		cursor: pointer;
+		padding: 0 12px;
+		&.search {
+			width: 1.25em;
+			padding: 5px 7px 0px;
+		}
 	}
 }
 .words {
@@ -463,7 +472,7 @@ export default {
 	>div {
 		cursor: pointer;
 		background: #d1e3c6;
-		padding: 2px 10px;
+		padding: 2px 6px;
 		&.count5 {
 			background: #f59494;
 		}
@@ -486,14 +495,15 @@ export default {
 
 	& div {
 		width: 50vw;
-		background-color: rgb(211,147,93);
+		color: white;
+		background-color: #f43f5e;
 		text-align: center;
 		font-weight: bold;
 		border-radius: 0.5em;
 		margin: 1em;
 		padding: 0.4em;
 		position: fixed;
-		top: 1vw;
+		top: 16vw;
 	}
 }
 .non_visi {

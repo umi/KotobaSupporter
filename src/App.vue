@@ -26,7 +26,7 @@ body {
   min-height: 100vh;
   text-align: center;
   color: #2c3e50;
-  background: #e4edf1;
+  background: white;
   margin: 0;
 }
 </style>
