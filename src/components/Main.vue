@@ -166,7 +166,8 @@ export default {
 								if(o === 3 || n === 3) return 3
 								if(o === 4 || n === 4) return 4
 								if(o === 5 || n === 5) return 5
-								return 0
+								if(o === 0 || n === 0) return 0 
+								return -1 
 							}
 
 			return _.transform(inputList.value, (result, value) => {
@@ -194,10 +195,10 @@ export default {
 							}
 						}
 
-						if(!result[val] || result[val][0] === 0){
-							result[val] = hitAll > 0 ? [1, _.unzipWith([[0,0,0,0], picks], comp), len] : [0]
+						if(!result[val]){
+							result[val] = [_.unzipWith([[-1,-1,-1,-1], picks], comp), len]
 						}else{
-							result[val] = [1, _.unzipWith([result[val][1], picks], comp), _.unzipWith([result[val][2], len], Math.max)]
+							result[val] = [_.unzipWith([result[val][1], picks], comp), _.unzipWith([result[val][2], len], Math.max)]
 						}
 					}
 				})
@@ -218,65 +219,68 @@ export default {
 			setTimeout(() => {
 				const selectedObj = inputObj.value
 				const [allPosList, allDelList] = _.transform(selectedObj, (result, value, key) => {
-					if(value[0] == 1){
-						if(value[2][0] > 1){
-							console.log(indexList.value[5][key.repeat(value[2][0])])
-							result[0].push(indexList.value[5][key.repeat(value[2][0])])
+					const statusSet = getStatusSet(key)
+					if(value[1][0] > 1){
+						console.log(indexList.value[5][key.repeat(value[1][0])])
+						result[0].push(indexList.value[5][key.repeat(value[1][0])])
+					}
+					if(value[1][1] > 0){
+						const reject = indexList.value[5][key.repeat(value[1][1] + 1)]
+						console.log(reject)
+						if(reject){
+							result[1].push(reject)
 						}
-						if(value[2][1] > 0){
-							const reject = indexList.value[5][key.repeat(value[2][1] + 1)]
-							console.log(reject)
-							if(reject){
-								result[1].push(reject)
+					}
+					const pending = _.indexOf(value[0], 1) > -1
+					console.time('for')
+					_.forEach(value[0], (v, k) => {
+						let matchIndexList = []
+						if(v === 0 && _.max(value[0]) === 0){
+							result[1].push(indexList.value[5][key])
+							if(typeof statusSet[1] !== 'undefined'){
+								result[1].push(indexList.value[6][k][statusSet[1]])
+							}
+							if(typeof statusSet[2] !== 'undefined'){
+								result[1].push(indexList.value[6][k][statusSet[2]])
+							}
+						}else if(v === 2){
+							matchIndexList = indexList.value[k][key]
+						}else if(v === 3){
+							if(typeof statusSet[0] !== 'undefined'){
+								matchIndexList = indexList.value[6][k][statusSet[0]].filter(o => indexList.value[k][key].indexOf(o) === -1)
+								result[1].push(indexList.value[5][key])
+							}
+						}else if(v === 4){
+							if(typeof statusSet[1] !== 'undefined'){
+								matchIndexList = indexList.value[6][k][statusSet[1]].filter(o => indexList.value[k][key].indexOf(o) === -1)
+								result[1].push(indexList.value[5][key])
+							}
+						}else if(v === 5){
+							if(typeof statusSet[2] !== 'undefined'){
+								matchIndexList = indexList.value[6][k][statusSet[2]].filter(o => indexList.value[k][key].indexOf(o) === -1)
+								result[1].push(indexList.value[5][key])
 							}
 						}
-						const pending = _.indexOf(value[1], 1) > -1
-						const statusSet = getStatusSet(key)
-						console.time('for')
-						_.forEach(value[1], (v, k) => {
-							let matchIndexList = []
-							if(v === 2){
-								matchIndexList = indexList.value[k][key]
-							}else if(v === 3){
-								if(typeof statusSet[0] !== 'undefined'){
-									matchIndexList = indexList.value[6][k][statusSet[0]].filter(o => indexList.value[k][key].indexOf(o) === -1)
-									result[1].push(indexList.value[5][key])
-								}
-							}else if(v === 4){
-								if(typeof statusSet[1] !== 'undefined'){
-									matchIndexList = indexList.value[6][k][statusSet[1]].filter(o => indexList.value[k][key].indexOf(o) === -1)
-									result[1].push(indexList.value[5][key])
-								}
-							}else if(v === 5){
-								if(typeof statusSet[2] !== 'undefined'){
-									matchIndexList = indexList.value[6][k][statusSet[2]].filter(o => indexList.value[k][key].indexOf(o) === -1)
-									result[1].push(indexList.value[5][key])
-								}
-							}
-							if(matchIndexList.length > 0){
-								result[0].push(matchIndexList)
-								result[1].push(indexList.value[4].filter(o => matchIndexList.indexOf(o) === -1))
-							}
-						})
-						console.timeEnd('for')
-						const tmpList = _.union(..._.transform(value[1], (res, v, k) => {
-							if(v === 1){
-								result[1].push(indexList.value[k][key])
-							}else if(pending){
-								res.push(indexList.value[k][key])
-							}
-						}, []))
-						if(tmpList.length){
-							result[0].push(tmpList)
+						if(matchIndexList.length > 0){
+							result[0].push(matchIndexList)
+							result[1].push(indexList.value[4].filter(o => matchIndexList.indexOf(o) === -1))
 						}
-					}else{
-						result[1].push(indexList.value[5][key])
+					})
+					console.timeEnd('for')
+					const tmpList = _.union(..._.transform(value[0], (res, v, k) => {
+						if(v === 1){
+							result[1].push(indexList.value[k][key])
+						}else if(pending ){
+							res.push(indexList.value[k][key])
+						}
+					}, []))
+					if(tmpList.length > 0){
+						result[0].push(tmpList)
 					}
 				}, [[], []])
 				console.log(allPosList, allDelList)
 				const posList = allPosList.length ? _.intersection(...allPosList): indexList.value[4]
 				const delList = _.union(...allDelList)
-
 				console.time('filter')
 				const filList = posList.filter(i => delList.indexOf(i) === -1)
 				console.timeEnd('filter')
