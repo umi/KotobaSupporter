@@ -7,9 +7,6 @@
 # install dependencies
 npm install
 
-# Todo
-ノーヒット時のさらなる絞り込み
-
 # serve with hot reload at localhost:3000
 npm run dev
 

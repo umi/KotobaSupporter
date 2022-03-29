@@ -198,7 +198,7 @@ export default {
 						if(!result[val]){
 							result[val] = [_.unzipWith([[-1,-1,-1,-1], picks], comp), len]
 						}else{
-							result[val] = [_.unzipWith([result[val][1], picks], comp), _.unzipWith([result[val][2], len], Math.max)]
+							result[val] = [_.unzipWith([result[val][0], picks], comp), _.unzipWith([result[val][1], len], Math.max)]
 						}
 					}
 				})
